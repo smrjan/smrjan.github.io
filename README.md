@@ -25,10 +25,10 @@ Big Data SQL query Tools:
 2. Presto: Query unstructured data from HDFS/HBASE/CASSANDRA. Format: columnar, Schema: Required
 
 Processing
-1. Spark/MLLib
-2. H2O.ai
-3. MADLib
+⋅⋅1. Spark/MLLib
+⋅⋅2. H2O.ai
+⋅⋅3. MADLib
 
 Notebook/Visualization
-1. Jupyter
-2. Zeppelin
+⋅⋅1. Jupyter
+⋅⋅2. Zeppelin
