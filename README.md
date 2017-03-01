@@ -32,3 +32,6 @@ Processing
 Notebook/Visualization
 1. Jupyter
 2. Zeppelin
+
+EMR Cluster
+/usr/bin/aws emr create-cluster --name "sss $NOW" --release-label emr-5.3.1 --log-uri s3://elasticmapreduce/ --enable-debugging --applications Name=Ganglia Name=Presto Name=Zeppelin Name=Spark --use-default-roles --ec2-attributes KeyName="toolbox" --instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m3.xlarge InstanceGroupType=CORE,InstanceCount=3,InstanceType=m3.xlarge --bootstrap-action Path=s3://bootstrapp/setup_drill
