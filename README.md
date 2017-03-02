@@ -42,7 +42,7 @@ EMR Cluster
   --ec2-attributes KeyName="toolbox",InstanceProfile=EMR_EC2_DefaultRole \
   --service-role EMR_DefaultRole \
   --instance-groups \
-    InstanceGroupType=MASTER,InstanceCount=1,InstanceType=c4.xlarge \
+    InstanceGroupType=MASTER,InstanceCount=1,InstanceType=c3.xlarge \
     InstanceGroupType=CORE,InstanceCount=2,InstanceType=r3.xlarge,BidPrice=0.05 \
   --log-uri s3://sss/emr-logs/ \
   --bootstrap-actions \
