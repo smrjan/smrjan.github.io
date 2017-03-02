@@ -35,3 +35,15 @@ Notebook/Visualization
 
 EMR Cluster
 /usr/bin/aws emr create-cluster --name "sss $NOW" --release-label emr-5.3.1 --log-uri s3://elasticmapreduce/ --enable-debugging --applications Name=Ganglia Name=Presto Name=Zeppelin Name=Spark --use-default-roles --ec2-attributes KeyName="toolbox" --instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m3.xlarge InstanceGroupType=CORE,InstanceCount=3,InstanceType=m3.xlarge --bootstrap-action Path=s3://bootstrapp/setup_drill
+
+/usr/bin/aws emr create-cluster --release-label emr-5.3.1 \
+  --name 'jupyter + emr-5.3.1 + $NOW' \
+  --applications Name=Spark Name=Ganglia Name=Presto Name=Zeppelin \
+  --ec2-attributes KeyName="toolbox",InstanceProfile=EMR_EC2_DefaultRole \
+  --service-role EMR_DefaultRole \
+  --instance-groups \
+    InstanceGroupType=MASTER,InstanceCount=1,InstanceType=c4.xlarge \
+    InstanceGroupType=CORE,InstanceCount=2,InstanceType=r3.xlarge,BidPrice=0.05 \
+  --log-uri s3://sss/emr-logs/ \
+  --bootstrap-actions \
+    Name='Install Jupyter notebook',Path="s3://aws-bigdata-blog/artifacts/aws-blog-emr-jupyter/install-jupyter-emr5.sh",Args=[--r,--julia,--toree,--torch,--ruby,--ds-packages,--ml-packages,--python-packages,'ggplot nilearn',--port,8880,--password,jupyter,--jupyterhub,--jupyterhub-port,8001,--cached-install,--notebook-dir,s3://sss/notebooks/,--copy-samples]
