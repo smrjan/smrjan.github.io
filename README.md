@@ -47,3 +47,13 @@ EMR Cluster
   --log-uri s3://sss/emr-logs/ \
   --bootstrap-actions \
     Name='Install Jupyter notebook',Path="s3://aws-bigdata-blog/artifacts/aws-blog-emr-jupyter/install-jupyter-emr5.sh",Args=[--r,--julia,--toree,--torch,--ruby,--ds-packages,--ml-packages,--python-packages,'ggplot nilearn',--port,8880,--password,jupyter,--jupyterhub,--jupyterhub-port,8001,--cached-install,--notebook-dir,s3://sss/notebooks/,--copy-samples]
+    
+/usr/bin/aws emr create-cluster --applications Name=Hadoop Name=Spark Name=Hive Name=HBase Name=Ganglia \
+--release-label emr-5.3.1 --name "EMR 5.3.1 RStudio + sparklyr" --service-role EMR_DefaultRole \
+--instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m3.xlarge \
+InstanceGroupType=CORE,InstanceCount=2,InstanceType=m3.xlarge,BidPrice=0.055 --bootstrap-actions \
+Path=s3://aws-bigdata-blog/artifacts/aws-blog-emr-rstudio-sparklyr/rstudio_sparklyr_emr5.sh,\
+Args=["--rstudio","--sparkr","--rexamples","--plyrmr","--rhdfs","--sparklyr"],\
+Name="Install RStudio" --ec2-attributes InstanceProfile=EMR_EC2_DefaultRole,KeyName=toolbox \
+--configurations '[{"Classification":"spark","Properties":{"maximizeResourceAllocation":"true"}}]' 
+    
